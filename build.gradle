@@ -1,0 +1,9 @@
+plugins {
+  id 'com.orctom.archetype' version '1.4.8'
+}
+
+task alterGenerated {
+    println 'about to change generated'
+}
+
+alterGenerated.shouldRunAfter generate

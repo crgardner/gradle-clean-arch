@@ -1,0 +1,19 @@
+bootJar {
+    enabled = true
+    archiveFileName = "${rootProject.name}.jar"
+}
+
+jar {
+    enabled = false
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation project(':application-business-rules:usecase')
+    implementation project(':application-business-rules:application')
+    implementation project(':interface-adapters:persistence')
+    implementation project(':interface-adapters:api')
+}
+
+

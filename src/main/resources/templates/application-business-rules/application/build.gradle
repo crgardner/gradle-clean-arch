@@ -1,4 +1,6 @@
 dependencies {
+    compile 'javax.transaction:javax.transaction-api:1.3'
+
     implementation project(':application-business-rules:usecase')
     implementation project(':enterprise-business-rules:domain')
 }

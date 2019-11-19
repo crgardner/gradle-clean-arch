@@ -1,8 +1,9 @@
-package @packageName@.controller;
+package @packageName@.controller.greeting.retrieval;
 
-import @packageName@.usecase.greeting.GreetingResponse;
-import @packageName@.usecase.greeting.ProvideGreetingConsumer;
-import @packageName@.usecase.greeting.ProvideGreetingUseCase;
+import @packageName@.usecase.greeting.retrieval.RetrieveGreetingRequest;
+import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponse;
+import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponder;
+import @packageName@.usecase.greeting.retrieval.RetrieveGreetingUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -17,28 +18,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ProvideGreetingController.class)
-class ProvideGreetingControllerTest {
+@WebMvcTest(controllers = RetrieveGreetingController.class)
+class RetrieveGreetingControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ProvideGreetingUseCase useCase;
+    private RetrieveGreetingUseCase useCase;
 
     @Test
-    @DisplayName("provides greeting")
+    @DisplayName("provides greeting for identified greeting")
     void providesGreeting() throws Exception {
-        doAnswer(byCallingPresenter()).when(useCase).handle(any());
+        doAnswer(byCallingPresenter()).when(useCase).execute(any(), any());
 
-        mockMvc.perform(get("/greetings/default/"))
+        mockMvc.perform(get("/greetings/1"))
                .andExpect(status().isOk())
                .andExpect(content().string("Hello, World!!"));
     }
 
     private Answer<?> byCallingPresenter() {
         return invocation -> {
-            var responder = invocation.getArgument(0, ProvideGreetingConsumer.class);
-            responder.accept(new GreetingResponse("Hello, World!!"));
+            var responder = invocation.getArgument(1, RetrieveGreetingResponder.class);
+            responder.accept(new RetrieveGreetingResponse("Hello, World!!"));
             return null;
         };
     }

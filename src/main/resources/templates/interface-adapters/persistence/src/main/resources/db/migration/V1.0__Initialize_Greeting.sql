@@ -6,4 +6,6 @@ CREATE TABLE IF NOT EXISTS GREETING (
 
 INSERT INTO GREETING (id, text, originator) VALUES (1,  'I am a greeting that was created from flyway', 'Chris');
 
+CREATE SEQUENCE IF NOT EXISTS HIBERNATE_SEQUENCE START WITH 2;
+
 COMMIT;

@@ -1,13 +1,13 @@
-package @packageName@.application.greeting;
+package @packageName@.application.greeting.creation;
 
 import @packageName@.domain.greeting.Greeting;
-import @packageName@.usecase.greeting.GreetingResponse;
-import @packageName@.usecase.greeting.ProvideGreetingConsumer;
-import @packageName@.usecase.greeting.ProvideGreetingUseCase;
+import @packageName@.usecase.greeting.creation.CreateGreetingResponse;
+import @packageName@.usecase.greeting.creation.CreateGreetingResponder;
+import @packageName@.usecase.greeting.creation.CreateGreetingUseCase;
 
 import java.util.Optional;
 
-public class ProvideGreetingInteractor implements ProvideGreetingUseCase {
+public class CreateGreetingInteractor implements CreateGreetingUseCase {
     private final GreetingGateway greetingGateway;
 
     public ProvideGreetingInteractor(GreetingGateway greetingGateway) {

@@ -1,4 +1,4 @@
-rootProject.name = 'eid-spring-boot'
+rootProject.name = '@projectName@'
 include 'main'
 include 'interface-adapters:api'
 include 'application-business-rules:usecase'

@@ -10,4 +10,12 @@
             </id>
         </attributes>
     </entity>
+
+    <embeddable class="@packageName@.domain.greeting.Person" access="FIELD">
+        <attributes>
+            <basic name="name">
+                <column name="ORIGINATOR" />
+            </basic>
+        </attributes>
+    </embeddable>
 </entity-mappings>

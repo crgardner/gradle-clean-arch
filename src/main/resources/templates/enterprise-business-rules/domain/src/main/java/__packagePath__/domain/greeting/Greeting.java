@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Greeting {
     private Long id;
     private String text;
-    private String originator;
+    private Person originator;
 
-    public Greeting(long id, String text, String originator) {
+    public Greeting(long id, String text, Person originator) {
         this(text, originator);
         this.id = id;
     }
 
-    public Greeting(String text, String originator) {
+    public Greeting(String text, Person originator) {
         this.text = text;
         this.originator = originator;
     }
@@ -29,7 +29,7 @@ public class Greeting {
         return text;
     }
 
-    public String originator() {
+    public Person originator() {
         return originator;
     }
 

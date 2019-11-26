@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import @packageName@.domain.greeting.Greeting;
 import @packageName@.domain.greeting.GreetingGateway;
+import @packageName@.domain.greeting.Person;
 import @packageName@.usecase.greeting.creation.CreateGreetingRequest;
 import @packageName@.usecase.greeting.creation.CreateGreetingResponder;
 import @packageName@.usecase.greeting.creation.CreateGreetingResponse;
@@ -27,8 +28,8 @@ class CreateGreetingInteractorTest implements CreateGreetingResponder {
     @Test
     @DisplayName("Creates greeting")
     void createsGreeting() {
-        var greeting = new Greeting("A second greeting", "Bobby");
-        when(greetingGateway.save(greeting)).thenReturn(new Greeting(2, "A second greeting", "Bobby"));
+        var greeting = new Greeting("A second greeting", new Person("Bobby"));
+        when(greetingGateway.save(greeting)).thenReturn(new Greeting(2, "A second greeting",  new Person("Bobby")));
 
         useCase = new CreateGreetingInteractor(greetingGateway);
         useCase.execute(new CreateGreetingRequest("A second greeting", "Bobby"), this);

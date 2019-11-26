@@ -26,6 +26,8 @@ configure(subprojects.findAll {it.name != 'application-business-rules' && it.nam
     targetCompatibility = 11
 
     dependencies {
+        implementation "org.apache.commons:commons-lang3:3.9"
+
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
         testImplementation 'org.assertj:assertj-core:3.14.0'

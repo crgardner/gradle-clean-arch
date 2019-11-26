@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import @packageName@.domain.greeting.Greeting;
 import @packageName@.domain.greeting.GreetingGateway;
+import @packageName@.domain.greeting.Person;
 import @packageName@.usecase.greeting.retrieval.RetrieveGreetingRequest;
 import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponse;
 import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponder;
@@ -30,7 +31,7 @@ class RetrieveGreetingInteractorTest implements RetrieveGreetingResponder {
     @DisplayName("Provides greeting")
     void providesGreetingFromGreetingCatalog() {
         when(greetingGateway.findGreetingValueById(1L))
-                            .thenReturn(Optional.of(new Greeting(1L, "Hello world.", "Mr. Boston")));
+                            .thenReturn(Optional.of(new Greeting(1L, "Hello world.", new Person("Mr. Boston"))));
         useCase = new RetrieveGreetingInteractor(greetingGateway);
 
         useCase.execute(new RetrieveGreetingRequest(1L), this);

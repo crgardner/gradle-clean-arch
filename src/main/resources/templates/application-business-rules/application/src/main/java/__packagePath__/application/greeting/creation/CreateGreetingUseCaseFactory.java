@@ -11,7 +11,7 @@ import java.util.function.*;
 public class CreateGreetingUseCaseFactory implements UseCaseFactory<CreateGreetingRequest, CreateGreetingResponder> {
 
     private final GreetingGateway greetingGateway;
-    private final Function<UseCase, UseCase> transactionDecorator;
+    private final UnaryOperator<UseCase> transactionDecorator;
 
     public CreateGreetingUseCaseFactory(GreetingGateway greetingGateway, UnaryOperator<UseCase> transactionDecorator) {
         this.greetingGateway = greetingGateway;

@@ -2,9 +2,7 @@ package @packageName@.controller.greeting.retrieval;
 
 import @packageName@.controller.exception.UnknownResourceException;
 import @packageName@.controller.response.ResponseWriter;
-import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponse;
-import @packageName@.usecase.greeting.retrieval.RetrieveGreetingResponder;
-import @packageName@.webmvc.response.ResponseEntityResponseWriter;
+import @packageName@.usecase.greeting.retrieval.*;
 
 class RetrieveGreetingPresenter implements RetrieveGreetingResponder {
     private final ResponseWriter responseWriter;

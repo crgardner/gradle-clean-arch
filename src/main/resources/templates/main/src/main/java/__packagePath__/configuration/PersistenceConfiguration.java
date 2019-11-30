@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @@EnableJpaRepositories("@packageName@.persistence.greeting")
 @@EntityScan("@packageName@.persistence.greeting")
+
 public class PersistenceConfiguration {
     @Bean
     public SpringDataGreetingGateway springDataGreetingGateway(GreetingRepository greetingRepository) {

@@ -1,22 +1,18 @@
 package @packageName@.controller.greeting.creation;
 
-import @packageName@.usecase.greeting.creation.CreateGreetingRequest;
-import @packageName@.usecase.greeting.creation.CreateGreetingResponder;
-import @packageName@.usecase.greeting.creation.CreateGreetingResponse;
-import @packageName@.usecase.greeting.creation.CreateGreetingUseCase;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import @packageName@.controller.greeting.shared.GreetingResource;
+import @packageName@.usecase.greeting.creation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.*;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = CreateGreetingController.class)
 @DisplayName("Create Greeting Controller")
@@ -27,13 +23,23 @@ class CreateGreetingControllerTest {
     @MockBean
     private CreateGreetingUseCase useCase;
 
+    private String greetingResourceJson;
+
+    @BeforeEach
+    void init() throws Exception {
+        var objectMapper = new ObjectMapper();
+        var greetingResource = new GreetingResource(0L, "hello from client", "Mr. Boston");
+        greetingResourceJson = objectMapper.writeValueAsString(greetingResource);
+    }
+
     @Test
     @DisplayName("creates new greeting")
     void createsNewGreeting() throws Exception {
         doAnswer(byCallingResponder()).when(useCase).execute(any(), any());
 
         mockMvc.perform(post("/greetings/")
-                        .content("hello from client"))
+                        .contentType("application/json")
+                        .content(greetingResourceJson))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"id\": 2, \"greetingText\": \"hello from client\"}"));
     }
@@ -42,7 +48,7 @@ class CreateGreetingControllerTest {
         return invocation -> {
             var responder = invocation.getArgument(1, CreateGreetingResponder.class);
             var greetingText = invocation.getArgument(0, CreateGreetingRequest.class).greetingText();
-            responder.accept(new CreateGreetingResponse(2L, greetingText, "Chris"));
+            responder.accept(new CreateGreetingResponse(2L, greetingText, "Mr. Boston"));
             return null;
         };
     }

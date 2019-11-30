@@ -1,5 +1,6 @@
 package @packageName@.controller.greeting.shared;
 
+@SuppressWarnings("unused")
 public class GreetingResource {
     private Long id;
     private String greetingText;
@@ -11,12 +12,12 @@ public class GreetingResource {
         this.originator = originator;
     }
 
-    public GreetingResource() {
-        // default
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public GreetingResource() {
+        // default
     }
 
     public void setId(Long id) {

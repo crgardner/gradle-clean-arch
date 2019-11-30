@@ -17,7 +17,7 @@ public class Greeting {
         this.originator = originator;
     }
 
-    Greeting() {
+    private Greeting() {
         // default
     }
 

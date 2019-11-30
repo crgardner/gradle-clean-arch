@@ -1,7 +1,5 @@
 package @packageName@.domain.greeting;
 
-import @packageName@.domain.greeting.Greeting;
-
 import java.util.Optional;
 
 public interface GreetingGateway {

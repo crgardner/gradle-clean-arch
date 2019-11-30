@@ -8,11 +8,11 @@ public class Person {
     private String name;
 
     public Person(String name) {
-        Validate.isTrue(name != null && name.length() <= 10);
+        Validate.isTrue(name != null && name.length() <= 10, "Name is too long");
         this.name = name;
     }
 
-    Person() {
+    private Person() {
         // default
     }
 

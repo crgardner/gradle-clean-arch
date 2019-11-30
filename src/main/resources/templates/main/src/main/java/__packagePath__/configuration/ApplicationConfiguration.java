@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import java.util.function.Function;
+import java.util.function.*;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -30,7 +30,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public UseCaseFactory<CreateGreetingRequest, CreateGreetingResponder> createGreetingUseCaseFactory(
-            SpringDataGreetingGateway springDataGreetingGateway, Function<UseCase, UseCase> transactionalDecorator) {
+            SpringDataGreetingGateway springDataGreetingGateway, UnaryOperator<UseCase> transactionalDecorator) {
         return new CreateGreetingUseCaseFactory(springDataGreetingGateway, transactionalDecorator);
     }
 

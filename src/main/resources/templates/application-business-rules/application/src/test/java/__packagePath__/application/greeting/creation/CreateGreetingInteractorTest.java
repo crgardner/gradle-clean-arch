@@ -1,20 +1,14 @@
 package @packageName@.application.greeting.creation;
 
-import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.*;
-
-import @packageName@.domain.greeting.Greeting;
-import @packageName@.domain.greeting.GreetingGateway;
-import @packageName@.domain.greeting.Person;
-import @packageName@.usecase.greeting.creation.CreateGreetingRequest;
-import @packageName@.usecase.greeting.creation.CreateGreetingResponder;
-import @packageName@.usecase.greeting.creation.CreateGreetingResponse;
-import @packageName@.usecase.greeting.creation.CreateGreetingUseCase;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import @packageName@.domain.greeting.*;
+import @packageName@.usecase.greeting.creation.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @DisplayName("Create Greeting Interactor")
@@ -23,15 +17,13 @@ class CreateGreetingInteractorTest implements CreateGreetingResponder {
     @Mock
     private GreetingGateway greetingGateway;
 
-    private CreateGreetingUseCase useCase;
-
     @Test
-    @DisplayName("Creates greeting")
+    @DisplayName("creates greeting")
     void createsGreeting() {
-        var greeting = new Greeting("A second greeting", new Person("Bobby"));
+        var greeting = new Greeting("A second greeting",  new Person("Bobby"));
         when(greetingGateway.save(greeting)).thenReturn(new Greeting(2, "A second greeting",  new Person("Bobby")));
 
-        useCase = new CreateGreetingInteractor(greetingGateway);
+        var useCase = new CreateGreetingInteractor(greetingGateway);
         useCase.execute(new CreateGreetingRequest("A second greeting", "Bobby"), this);
     }
 

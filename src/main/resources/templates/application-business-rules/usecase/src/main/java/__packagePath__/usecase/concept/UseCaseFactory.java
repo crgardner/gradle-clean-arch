@@ -1,5 +1,5 @@
 package @packageName@.usecase.concept;
 
-public interface UseCaseFactory<REQUEST, RESPONDER> {
-    UseCase create(REQUEST request, RESPONDER responder);
+public interface UseCaseFactory<I, O> {
+    UseCase create(I request, O responder);
 }

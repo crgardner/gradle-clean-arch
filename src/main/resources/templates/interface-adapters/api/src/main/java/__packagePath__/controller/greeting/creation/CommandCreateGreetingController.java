@@ -1,14 +1,10 @@
 package @packageName@.controller.greeting.creation;
 
-import @packageName@.usecase.concept.UseCase;
-import @packageName@.usecase.concept.UseCaseFactory;
-import @packageName@.usecase.greeting.creation.CreateGreetingRequest;
-import @packageName@.usecase.greeting.creation.CreateGreetingResponder;
+import @packageName@.controller.greeting.shared.GreetingResource;
+import @packageName@.usecase.concept.*;
+import @packageName@.usecase.greeting.creation.*;
 import @packageName@.webmvc.response.ResponseEntityResponseWriter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CommandCreateGreetingController {
@@ -18,25 +14,25 @@ public class CommandCreateGreetingController {
         this.useCaseFactory = useCaseFactory;
     }
 
-    @PostMapping(value = "/commands/greetings", produces = "application/json")
-    public ResponseEntity<?> createGreeting(@RequestBody String greetingText) {
+    @PostMapping(value = "/commands/greetings", consumes = "application/json", produces = "application/json")
+    public Object createGreeting(@RequestBody GreetingResource greetingResource) {
         var responseWriter = new ResponseEntityResponseWriter();
-        var useCase = createUseCase(greetingText, responseWriter);
+        var useCase = createUseCase(greetingResource, responseWriter);
 
         useCase.execute();
 
-        return responseWriter.getResponseEntity();
+        return responseWriter.getResponseEntity().getBody();
     }
 
-    private UseCase createUseCase(String greetingText, ResponseEntityResponseWriter responseWriter) {
-        return useCaseFactory.create(requestFrom(greetingText), presenterFor(responseWriter));
+    private UseCase createUseCase(GreetingResource greetingResource, ResponseEntityResponseWriter responseWriter) {
+        return useCaseFactory.create(requestFrom(greetingResource), presenterFor(responseWriter));
     }
 
     private CreateGreetingPresenter presenterFor(ResponseEntityResponseWriter responseWriter) {
         return new CreateGreetingPresenter(responseWriter);
     }
 
-    private CreateGreetingRequest requestFrom(String greetingText) {
-        return new CreateGreetingRequest(greetingText, "Chris");
+    private CreateGreetingRequest requestFrom(GreetingResource greetingResource) {
+        return new CreateGreetingRequest(greetingResource.getGreetingText(), greetingResource.getOriginator());
     }
 }

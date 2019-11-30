@@ -1,13 +1,10 @@
 package @packageName@.controller.greeting.creation;
 
 
-import @packageName@.usecase.greeting.creation.CreateGreetingRequest;
-import @packageName@.usecase.greeting.creation.CreateGreetingUseCase;
+import @packageName@.controller.greeting.shared.GreetingResource;
+import @packageName@.usecase.greeting.creation.*;
 import @packageName@.webmvc.response.ResponseEntityResponseWriter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CreateGreetingController {
@@ -17,13 +14,13 @@ public class CreateGreetingController {
         this.useCase = useCase;
     }
 
-    @PostMapping(value = "/greetings", produces = "application/json")
-    public ResponseEntity<?> createGreeting(@RequestBody String greetingText) {
+    @PostMapping(value = "/greetings", consumes = "application/json", produces = "application/json")
+    public Object createGreeting(@RequestBody GreetingResource greetingResource) {
         var responseWriter = new ResponseEntityResponseWriter();
         var presenter = new CreateGreetingPresenter(responseWriter);
 
-        useCase.execute(new CreateGreetingRequest(greetingText, "Chris"), presenter);
+        useCase.execute(new CreateGreetingRequest(greetingResource.getGreetingText(), greetingResource.getOriginator()), presenter);
 
-        return responseWriter.getResponseEntity();
+        return responseWriter.getResponseEntity().getBody();
     }
 }

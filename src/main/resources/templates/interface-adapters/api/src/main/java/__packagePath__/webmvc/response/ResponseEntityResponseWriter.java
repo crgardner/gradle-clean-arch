@@ -1,6 +1,5 @@
 package @packageName@.webmvc.response;
 
-import @packageName@.controller.greeting.shared.GreetingResource;
 import @packageName@.controller.response.ResponseWriter;
 import org.springframework.http.ResponseEntity;
 

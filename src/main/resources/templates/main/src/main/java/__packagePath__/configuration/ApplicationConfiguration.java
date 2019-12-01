@@ -35,7 +35,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public Function<UseCase, UseCase> transactionalDecorator() {
+    public UnaryOperator<UseCase> transactionalDecorator() {
         return this::transactionalUseCase;
     }
 
